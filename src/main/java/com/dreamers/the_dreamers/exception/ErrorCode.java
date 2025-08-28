@@ -18,6 +18,11 @@ public enum ErrorCode {
     UNAUTHORIZED("AUTH009", "Unauthorized access"),
     FORBIDDEN("AUTH010", "Access forbidden"),
     ROLE_NOT_FOUND("AUTH011", "Role not found"),
+    INVALID_VERIFICATION_TOKEN("AUTH012", "Invalid verification token"),
+    INVALID_RESET_PASSWORD_TOKEN("AUTH013", "Invalid reset password token"),
+    RESET_PASSWORD_EXPIRED("AUTH014", "Reset password expired"),
+    INVALID_RESET_TOKEN("AUTH015", "Invalid reset token"),
+    RESET_TOKEN_EXPIRED("AUTH016", "Reset token expired"),
     
     // Validation errors
     INVALID_INPUT("VAL001", "Invalid input data"),
@@ -38,7 +43,10 @@ public enum ErrorCode {
     // Business logic errors
     INSUFFICIENT_PERMISSIONS("BUS001", "Insufficient permissions"),
     INVALID_OPERATION("BUS002", "Invalid operation"),
-    BUSINESS_RULE_VIOLATION("BUS003", "Business rule violation");
+    BUSINESS_RULE_VIOLATION("BUS003", "Business rule violation"),
+    EMAIL_SENDING_FAILED("BUS004", "Email sending failed")
+
+    ;
 
     private final String errorCode;
     private final String errorMessage;

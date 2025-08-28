@@ -1,4 +1,4 @@
-package com.dreamers.the_dreamers.dto;
+package com.dreamers.the_dreamers.dto.auth;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

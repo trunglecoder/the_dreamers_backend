@@ -1,8 +1,6 @@
 package com.dreamers.the_dreamers.controller;
 
-import com.dreamers.the_dreamers.dto.LoginRequest;
-import com.dreamers.the_dreamers.dto.LoginResponse;
-import com.dreamers.the_dreamers.dto.RegisterRequest;
+import com.dreamers.the_dreamers.dto.auth.*;
 import com.dreamers.the_dreamers.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -40,11 +38,30 @@ public class AuthController {
         LoginResponse response = authService.refreshToken(refreshToken);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/verify")
+    public ResponseEntity<?> verifyAccount(@RequestParam("token") String token) {
+        authService.verifyAccount(token);
+        return ResponseEntity.ok("Xác minh tài khoản thành công!");
+    }
     
     @GetMapping("/me")
     public ResponseEntity<LoginResponse.UserInfo> getCurrentUser() {
         // This would typically get the current user from the security context
         // For now, we'll return a simple response
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+        authService.forgotPassword(request.getEmail());
+        return ResponseEntity.ok("Vui lòng kiểm tra email để đặt lại mật khẩu.");
+    }
+
+    // Endpoint để đặt lại mật khẩu
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
+        authService.resetPassword(request.getToken(), request.getNewPassword());
+        return ResponseEntity.ok("Mật khẩu của bạn đã được thay đổi thành công!");
     }
 }

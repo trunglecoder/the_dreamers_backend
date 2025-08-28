@@ -1,9 +1,9 @@
 package com.dreamers.the_dreamers.service;
 
 import com.dreamers.the_dreamers.config.JwtUtil;
-import com.dreamers.the_dreamers.dto.LoginRequest;
-import com.dreamers.the_dreamers.dto.LoginResponse;
-import com.dreamers.the_dreamers.dto.RegisterRequest;
+import com.dreamers.the_dreamers.dto.auth.LoginRequest;
+import com.dreamers.the_dreamers.dto.auth.LoginResponse;
+import com.dreamers.the_dreamers.dto.auth.RegisterRequest;
 import com.dreamers.the_dreamers.exception.AppException;
 import com.dreamers.the_dreamers.exception.ErrorCode;
 import com.dreamers.the_dreamers.model.Role;
@@ -12,7 +12,10 @@ import com.dreamers.the_dreamers.model.UserDetails;
 import com.dreamers.the_dreamers.repository.RoleRepository;
 import com.dreamers.the_dreamers.repository.UserDetailsRepository;
 import com.dreamers.the_dreamers.repository.UserRepository;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,14 +29,17 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class AuthService {
 
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    private final UserDetailsRepository userDetailRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
-    private final AuthenticationManager authenticationManager;
+    UserRepository userRepository;
+    RoleRepository roleRepository;
+    UserDetailsRepository userDetailRepository;
+    PasswordEncoder passwordEncoder;
+    JwtUtil jwtUtil;
+    AuthenticationManager authenticationManager;
+    EmailService emailService;
 
     @Transactional
     public LoginResponse login(LoginRequest loginRequest) {
@@ -70,7 +76,6 @@ public class AuthService {
 
     @Transactional
     public LoginResponse register(RegisterRequest registerRequest) {
-        // Check if username already exists
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
             throw new AppException(ErrorCode.USERNAME_ALREADY_EXISTS);
         }
@@ -84,6 +89,9 @@ public class AuthService {
         Role role = roleRepository.findByName(registerRequest.getRoleName())
                 .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
 
+        //Tạo token để verify
+        String verificationToken = generateVerificationToken();
+
         // Create and save the new User
         User user = User.builder()
                 .username(registerRequest.getUsername())
@@ -91,7 +99,7 @@ public class AuthService {
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .role(role) // Gán trực tiếp đối tượng Role
                 .verified(false) // Mặc định chưa verified sau khi đăng ký
-                .verificationToken(generateVerificationToken())
+                .verificationToken(verificationToken)
                 .build();
 
         userRepository.save(user);
@@ -106,6 +114,8 @@ public class AuthService {
                 .build();
 
         userDetailRepository.save(userDetail); // Lưu UserDetail
+
+        emailService.sendVerificationEmail(user.getEmail(), verificationToken);
 
         // Generate token for immediate login (có thể cần thay đổi logic này)
         String token = jwtUtil.generateToken(user.getEmail(), role.getName());
@@ -170,4 +180,44 @@ public class AuthService {
     private String generateRefreshToken() {
         return UUID.randomUUID().toString();
     }
+
+    @Transactional
+    public void verifyAccount(String verificationToken) {
+        User user = userRepository.findByVerificationToken(verificationToken)
+                .orElseThrow(() -> new AppException(ErrorCode.INVALID_VERIFICATION_TOKEN));
+
+        user.setVerified(true);
+        user.setVerificationToken(null); // Xóa token sau khi đã xác minh
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void forgotPassword(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        String resetToken = UUID.randomUUID().toString();
+        user.setResetPasswordToken(resetToken);
+        user.setResetPasswordExpiry(LocalDateTime.now().plusMinutes(15)); // Token có hiệu lực 15 phút
+        userRepository.save(user);
+
+        emailService.sendPasswordResetEmail(user.getEmail(), resetToken);
+    }
+
+    // Phương thức mới để xử lý đặt lại mật khẩu
+    @Transactional
+    public void resetPassword(String token, String newPassword) {
+        User user = userRepository.findByResetPasswordToken(token)
+                .orElseThrow(() -> new AppException(ErrorCode.INVALID_RESET_TOKEN));
+
+        if (user.getResetPasswordExpiry().isBefore(LocalDateTime.now())) {
+            throw new AppException(ErrorCode.RESET_TOKEN_EXPIRED);
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setResetPasswordToken(null);
+        user.setResetPasswordExpiry(null);
+        userRepository.save(user);
+    }
+
 }
