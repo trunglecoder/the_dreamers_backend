@@ -1,5 +1,6 @@
 package com.dreamers.the_dreamers.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +30,9 @@ public class User extends BaseEntity {
     @Column(name = "password", nullable = false, length = 255)
     private String password;
 
+    @Column(name = "active", nullable = false)
+    private Boolean active = true;
+
     @Column(name = "verification_token", length = 255)
     private String verificationToken;
 
@@ -54,49 +58,61 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-posts")
+    @JsonIgnore
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "uploader", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-internalDocuments")
+    @JsonIgnore
     private List<InternalDocument> internalDocuments = new ArrayList<>();
 
     @OneToMany(mappedBy = "participant1", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-conversationsAsParticipant1")
+    @JsonIgnore
     private List<Conversation> conversationsAsParticipant1 = new ArrayList<>();
 
     @OneToMany(mappedBy = "participant2", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-conversationsAsParticipant2")
+    @JsonIgnore
     private List<Conversation> conversationsAsParticipant2 = new ArrayList<>();
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-messages")
+    @JsonIgnore
     private List<Message> messages = new ArrayList<>();
 
     @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-videoCalls")
+    @JsonIgnore
     private List<VideoCall> videoCalls = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-callParticipants")
+    @JsonIgnore
     private List<CallParticipant> callParticipants = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-applications")
+    @JsonIgnore
     private List<Application> applications = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-notificationsAsRecipient")
+    @JsonIgnore
     private List<Notification> notificationsAsRecipient = new ArrayList<>();
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-notificationsAsSender")
+    @JsonIgnore
     private List<Notification> notificationsAsSender = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-chatbotHistory")
+    @JsonIgnore
     private List<ChatbotHistory> chatbotHistory = new ArrayList<>();
 
     @OneToMany(mappedBy = "reporter", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("user-reports")
+    @JsonIgnore
     private List<Report> reports = new ArrayList<>();
 }
