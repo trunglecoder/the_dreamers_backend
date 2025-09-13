@@ -22,7 +22,7 @@ public class UserDetails {
     
     @Id
     @Column(name = "user_id")
-    private String userId;
+    private Long userId;
     
     @Column(name = "first_name", length = 255)
     private String firstName;
