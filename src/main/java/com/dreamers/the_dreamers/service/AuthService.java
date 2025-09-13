@@ -98,6 +98,7 @@ public class AuthService {
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .role(role) // Gán trực tiếp đối tượng Role
+                .active(true)
                 .verified(false) // Mặc định chưa verified sau khi đăng ký
                 .verificationToken(verificationToken)
                 .build();

@@ -22,7 +22,7 @@ public class VideoCallService {
         return videoCallRepository.findById(id);
     }
     
-    public List<VideoCall> getVideoCallsByOrganizerId(String organizerId) {
+    public List<VideoCall> getVideoCallsByOrganizerId(Long organizerId) {
         return videoCallRepository.findByOrganizerId(organizerId);
     }
     

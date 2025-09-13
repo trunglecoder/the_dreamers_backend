@@ -42,7 +42,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(
             @Parameter(description = "ID of the user to retrieve")
-            @PathVariable String id) {
+            @PathVariable Long id) {
         return userService.getUserById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -99,7 +99,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(
             @Parameter(description = "ID of the user to update")
-            @PathVariable String id,
+            @PathVariable Long id,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Updated user details", required = true)
             @RequestBody User userDetails) {
         try {
@@ -116,7 +116,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(
             @Parameter(description = "ID of the user to delete")
-            @PathVariable String id) {
+            @PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }

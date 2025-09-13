@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, String> {
-    List<Message> findByConversationIdOrderBySentAtAsc(String conversationId);
-    Page<Message> findByConversationIdOrderBySentAtDesc(String conversationId, Pageable pageable);
-    List<Message> findBySenderId(String senderId);
+    List<Message> findByConversationIdOrderBySentAtAsc(Long conversationId);
+    Page<Message> findByConversationIdOrderBySentAtDesc(Long conversationId, Pageable pageable);
+    List<Message> findBySenderId(Long senderId);
 }

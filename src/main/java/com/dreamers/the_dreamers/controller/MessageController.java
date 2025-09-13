@@ -74,7 +74,7 @@ public class MessageController {
     @GetMapping("/conversation/{conversationId}")
     public ResponseEntity<List<Message>> getMessagesByConversation(
             @Parameter(description = "ID of the conversation")
-            @PathVariable String conversationId) {
+            @PathVariable Long conversationId) {
         return ResponseEntity.ok(messageService.getMessagesByConversationId(conversationId));
     }
 
@@ -86,7 +86,7 @@ public class MessageController {
     @GetMapping("/conversation/{conversationId}/page")
     public ResponseEntity<Page<Message>> getMessagesByConversationPaginated(
             @Parameter(description = "ID of the conversation")
-            @PathVariable String conversationId,
+            @PathVariable Long conversationId,
             @Parameter(description = "Page number (0-indexed)", example = "0")
             @RequestParam(defaultValue = "0") int page,
             @Parameter(description = "Number of messages per page", example = "10")
@@ -103,7 +103,7 @@ public class MessageController {
     @GetMapping("/sender/{senderId}")
     public ResponseEntity<List<Message>> getMessagesBySender(
             @Parameter(description = "ID of the sender")
-            @PathVariable String senderId) {
+            @PathVariable Long senderId) {
         return ResponseEntity.ok(messageService.getMessagesBySenderId(senderId));
     }
 

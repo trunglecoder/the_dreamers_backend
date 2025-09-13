@@ -57,7 +57,7 @@ public class UserDetailsController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<UserDetails> getUserDetailsByUserId(
             @Parameter(description = "ID of the associated user")
-            @PathVariable String userId) {
+            @PathVariable Long userId) {
         return userDetailsService.getUserDetailsByUserId(userId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

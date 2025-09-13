@@ -28,15 +28,15 @@ public class MessageService {
         return messageRepository.findById(id);
     }
     
-    public List<Message> getMessagesByConversationId(String conversationId) {
+    public List<Message> getMessagesByConversationId(Long conversationId) {
         return messageRepository.findByConversationIdOrderBySentAtAsc(conversationId);
     }
     
-    public Page<Message> getMessagesByConversationId(String conversationId, Pageable pageable) {
+    public Page<Message> getMessagesByConversationId(Long conversationId, Pageable pageable) {
         return messageRepository.findByConversationIdOrderBySentAtDesc(conversationId, pageable);
     }
     
-    public List<Message> getMessagesBySenderId(String senderId) {
+    public List<Message> getMessagesBySenderId(Long senderId) {
         return messageRepository.findBySenderId(senderId);
     }
     

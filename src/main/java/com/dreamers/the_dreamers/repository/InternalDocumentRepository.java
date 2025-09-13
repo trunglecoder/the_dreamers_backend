@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface InternalDocumentRepository extends JpaRepository<InternalDocument, String> {
-    List<InternalDocument> findByUploaderId(String uploaderId);
+    List<InternalDocument> findByUploaderId(Long uploaderId);
 }

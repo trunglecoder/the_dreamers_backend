@@ -74,7 +74,7 @@ public class NotificationController {
     @GetMapping("/recipient/{recipientId}")
     public ResponseEntity<List<Notification>> getNotificationsByRecipient(
             @Parameter(description = "ID of the recipient user")
-            @PathVariable String recipientId) {
+            @PathVariable Long recipientId) {
         return ResponseEntity.ok(notificationService.getNotificationsByRecipientId(recipientId));
     }
 
@@ -86,7 +86,7 @@ public class NotificationController {
     @GetMapping("/recipient/{recipientId}/page")
     public ResponseEntity<Page<Notification>> getNotificationsByRecipientPaginated(
             @Parameter(description = "ID of the recipient user")
-            @PathVariable String recipientId,
+            @PathVariable Long recipientId,
             @Parameter(description = "Page number (0-indexed)", example = "0")
             @RequestParam(defaultValue = "0") int page,
             @Parameter(description = "Number of notifications per page", example = "10")
@@ -103,7 +103,7 @@ public class NotificationController {
     @GetMapping("/recipient/{recipientId}/unread")
     public ResponseEntity<List<Notification>> getUnreadNotificationsByRecipient(
             @Parameter(description = "ID of the recipient user")
-            @PathVariable String recipientId) {
+            @PathVariable Long recipientId) {
         return ResponseEntity.ok(notificationService.getUnreadNotificationsByRecipientId(recipientId));
     }
 

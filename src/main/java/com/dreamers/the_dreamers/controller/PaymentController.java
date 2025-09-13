@@ -56,7 +56,7 @@ public class PaymentController {
     @GetMapping("/donation/{donationId}")
     public ResponseEntity<List<Payment>> getPaymentsByDonation(
             @Parameter(description = "ID of the donation")
-            @PathVariable String donationId) {
+            @PathVariable Long donationId) {
         return ResponseEntity.ok(paymentService.getPaymentsByDonationId(donationId));
     }
 

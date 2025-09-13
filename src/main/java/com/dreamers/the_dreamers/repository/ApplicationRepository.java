@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, String> {
-    List<Application> findByUserId(String userId);
+    List<Application> findByUserId(Long userId);
     List<Application> findByStatus(ApplicationStatus status);
     Page<Application> findByStatus(ApplicationStatus status, Pageable pageable);
 }

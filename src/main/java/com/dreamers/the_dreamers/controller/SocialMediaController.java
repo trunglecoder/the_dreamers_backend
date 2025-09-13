@@ -56,7 +56,7 @@ public class SocialMediaController {
     @GetMapping("/user-detail/{userDetailId}")
     public ResponseEntity<List<SocialMedia>> getSocialMediaByUserDetail(
             @Parameter(description = "ID of the user details record")
-            @PathVariable String userDetailId) {
+            @PathVariable Long userDetailId) {
         return ResponseEntity.ok(socialMediaService.getSocialMediaByUserDetailId(userDetailId));
     }
 

@@ -22,7 +22,7 @@ public class ChatbotHistoryService {
         return chatbotHistoryRepository.findById(id);
     }
     
-    public List<ChatbotHistory> getChatbotHistoriesByUserId(String userId) {
+    public List<ChatbotHistory> getChatbotHistoriesByUserId(Long userId) {
         return chatbotHistoryRepository.findByUserId(userId);
     }
     

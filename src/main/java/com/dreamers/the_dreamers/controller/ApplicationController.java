@@ -75,7 +75,7 @@ public class ApplicationController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Application>> getApplicationsByUser(
             @Parameter(description = "ID of the user", example = "a1b2c3d4-e5f6-7890-1234-567890abcdef")
-            @PathVariable String userId) {
+            @PathVariable Long userId) {
         return ResponseEntity.ok(applicationService.getApplicationsByUserId(userId));
     }
 

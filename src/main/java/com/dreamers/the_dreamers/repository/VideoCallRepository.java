@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface VideoCallRepository extends JpaRepository<VideoCall, String> {
-    List<VideoCall> findByOrganizerId(String organizerId);
+    List<VideoCall> findByOrganizerId(Long organizerId);
 }

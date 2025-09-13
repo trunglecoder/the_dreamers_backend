@@ -22,7 +22,7 @@ public class InternalDocumentService {
         return internalDocumentRepository.findById(id);
     }
     
-    public List<InternalDocument> getInternalDocumentsByUploaderId(String uploaderId) {
+    public List<InternalDocument> getInternalDocumentsByUploaderId(Long uploaderId) {
         return internalDocumentRepository.findByUploaderId(uploaderId);
     }
     

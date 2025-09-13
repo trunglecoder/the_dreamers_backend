@@ -22,7 +22,7 @@ public class PaymentService {
         return paymentRepository.findById(id);
     }
     
-    public List<Payment> getPaymentsByDonationId(String donationId) {
+    public List<Payment> getPaymentsByDonationId(Long donationId) {
         return paymentRepository.findByDonationId(donationId);
     }
     

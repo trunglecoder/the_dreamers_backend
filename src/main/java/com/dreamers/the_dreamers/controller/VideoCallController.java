@@ -56,7 +56,7 @@ public class VideoCallController {
     @GetMapping("/organizer/{organizerId}")
     public ResponseEntity<List<VideoCall>> getVideoCallsByOrganizer(
             @Parameter(description = "ID of the organizer user")
-            @PathVariable String organizerId) {
+            @PathVariable Long organizerId) {
         return ResponseEntity.ok(videoCallService.getVideoCallsByOrganizerId(organizerId));
     }
 

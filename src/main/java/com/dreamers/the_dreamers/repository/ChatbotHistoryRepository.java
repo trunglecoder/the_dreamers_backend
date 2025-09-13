@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ChatbotHistoryRepository extends JpaRepository<ChatbotHistory, String> {
-    List<ChatbotHistory> findByUserId(String userId);
+    List<ChatbotHistory> findByUserId(Long userId);
     List<ChatbotHistory> findBySessionId(String sessionId);
 }

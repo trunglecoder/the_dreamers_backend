@@ -22,7 +22,7 @@ public class ConversationService {
         return conversationRepository.findById(id);
     }
     
-    public List<Conversation> getConversationsByParticipant(String participantId) {
+    public List<Conversation> getConversationsByParticipant(Long participantId) {
         return conversationRepository.findByParticipant1IdOrParticipant2Id(participantId, participantId);
     }
     

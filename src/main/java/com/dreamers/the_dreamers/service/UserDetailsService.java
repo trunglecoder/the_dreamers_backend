@@ -22,7 +22,7 @@ public class UserDetailsService {
         return userDetailsRepository.findById(id);
     }
     
-    public Optional<UserDetails> getUserDetailsByUserId(String userId) {
+    public Optional<UserDetails> getUserDetailsByUserId(Long userId) {
         return Optional.ofNullable(userDetailsRepository.findByUserId(userId));
     }
     

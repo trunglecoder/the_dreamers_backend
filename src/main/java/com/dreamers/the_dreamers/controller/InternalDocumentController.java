@@ -56,7 +56,7 @@ public class InternalDocumentController {
     @GetMapping("/uploader/{uploaderId}")
     public ResponseEntity<List<InternalDocument>> getInternalDocumentsByUploader(
             @Parameter(description = "ID of the uploader")
-            @PathVariable String uploaderId) {
+            @PathVariable Long uploaderId) {
         return ResponseEntity.ok(internalDocumentService.getInternalDocumentsByUploaderId(uploaderId));
     }
 

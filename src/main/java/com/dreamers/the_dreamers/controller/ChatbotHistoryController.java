@@ -56,7 +56,7 @@ public class ChatbotHistoryController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ChatbotHistory>> getChatbotHistoriesByUser(
             @Parameter(description = "ID of the user")
-            @PathVariable String userId) {
+            @PathVariable Long userId) {
         return ResponseEntity.ok(chatbotHistoryService.getChatbotHistoriesByUserId(userId));
     }
 

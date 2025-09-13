@@ -29,7 +29,7 @@ public class ApplicationService {
         return applicationRepository.findById(id);
     }
     
-    public List<Application> getApplicationsByUserId(String userId) {
+    public List<Application> getApplicationsByUserId(Long userId) {
         return applicationRepository.findByUserId(userId);
     }
     

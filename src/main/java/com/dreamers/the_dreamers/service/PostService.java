@@ -29,11 +29,11 @@ public class PostService {
         return postRepository.findById(id);
     }
     
-    public List<Post> getPostsByAuthorId(String authorId) {
+    public List<Post> getPostsByAuthorId(Long authorId) {
         return postRepository.findByAuthorId(authorId);
     }
     
-    public Page<Post> getPostsByAuthorId(String authorId, Pageable pageable) {
+    public Page<Post> getPostsByAuthorId(Long authorId, Pageable pageable) {
         return postRepository.findByAuthorId(authorId, pageable);
     }
     

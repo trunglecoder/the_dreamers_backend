@@ -28,15 +28,15 @@ public class NotificationService {
         return notificationRepository.findById(id);
     }
     
-    public List<Notification> getNotificationsByRecipientId(String recipientId) {
+    public List<Notification> getNotificationsByRecipientId(Long recipientId) {
         return notificationRepository.findByRecipientIdOrderByCreatedAtDesc(recipientId);
     }
     
-    public Page<Notification> getNotificationsByRecipientId(String recipientId, Pageable pageable) {
+    public Page<Notification> getNotificationsByRecipientId(Long recipientId, Pageable pageable) {
         return notificationRepository.findByRecipientIdOrderByCreatedAtDesc(recipientId, pageable);
     }
     
-    public List<Notification> getUnreadNotificationsByRecipientId(String recipientId) {
+    public List<Notification> getUnreadNotificationsByRecipientId(Long recipientId) {
         return notificationRepository.findByRecipientIdAndIsReadFalse(recipientId);
     }
     

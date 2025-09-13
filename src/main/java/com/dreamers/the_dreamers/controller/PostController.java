@@ -75,7 +75,7 @@ public class PostController {
     @GetMapping("/author/{authorId}")
     public ResponseEntity<List<Post>> getPostsByAuthor(
             @Parameter(description = "ID of the author")
-            @PathVariable String authorId) {
+            @PathVariable Long authorId) {
         return ResponseEntity.ok(postService.getPostsByAuthorId(authorId));
     }
 
@@ -87,7 +87,7 @@ public class PostController {
     @GetMapping("/author/{authorId}/page")
     public ResponseEntity<Page<Post>> getPostsByAuthorPaginated(
             @Parameter(description = "ID of the author")
-            @PathVariable String authorId,
+            @PathVariable Long authorId,
             @Parameter(description = "Page number (0-indexed)", example = "0")
             @RequestParam(defaultValue = "0") int page,
             @Parameter(description = "Number of posts per page", example = "10")

@@ -75,7 +75,7 @@ public class ReportController {
     @GetMapping("/reporter/{reporterId}")
     public ResponseEntity<List<Report>> getReportsByReporter(
             @Parameter(description = "ID of the reporter")
-            @PathVariable String reporterId) {
+            @PathVariable Long reporterId) {
         return ResponseEntity.ok(reportService.getReportsByReporterId(reporterId));
     }
 

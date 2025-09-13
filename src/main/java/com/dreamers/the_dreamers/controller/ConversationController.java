@@ -56,7 +56,7 @@ public class ConversationController {
     @GetMapping("/participant/{participantId}")
     public ResponseEntity<List<Conversation>> getConversationsByParticipant(
             @Parameter(description = "ID of the participant")
-            @PathVariable String participantId) {
+            @PathVariable Long participantId) {
         return ResponseEntity.ok(conversationService.getConversationsByParticipant(participantId));
     }
 

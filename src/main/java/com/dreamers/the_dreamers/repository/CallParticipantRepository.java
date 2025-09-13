@@ -17,8 +17,8 @@ public interface CallParticipantRepository extends JpaRepository<CallParticipant
     List<CallParticipant> findByUser(User user);
 
     // Tìm CallParticipant dựa trên ID của VideoCall (cách cũ vẫn hoạt động, nhưng không chuẩn)
-    List<CallParticipant> findByVideoCall_Id(String videoCallId);
+    List<CallParticipant> findByVideoCall_Id(Long videoCallId);
 
     // Tìm CallParticipant dựa trên ID của User (cách cũ vẫn hoạt động, nhưng không chuẩn)
-    List<CallParticipant> findByUser_Id(String userId);
+    List<CallParticipant> findByUser_Id(Long userId);
 }

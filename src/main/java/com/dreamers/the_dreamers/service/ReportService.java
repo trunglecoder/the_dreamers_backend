@@ -29,7 +29,7 @@ public class ReportService {
         return reportRepository.findById(id);
     }
     
-    public List<Report> getReportsByReporterId(String reporterId) {
+    public List<Report> getReportsByReporterId(Long reporterId) {
         return reportRepository.findByReporterId(reporterId);
     }
     

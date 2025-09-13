@@ -24,7 +24,7 @@ public class SocialMediaService {
         return socialMediaRepository.findById(id);
     }
     
-    public List<SocialMedia> getSocialMediaByUserDetailId(String userDetailId) {
+    public List<SocialMedia> getSocialMediaByUserDetailId(Long userDetailId) {
         return socialMediaRepository.findByUserDetails(userDetailsRepository.findByUserId(userDetailId));
     }
     
